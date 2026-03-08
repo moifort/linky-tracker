@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BF0E01212F5072C10074B393 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = BF0E01222F5072C10074B393 /* Sentry */; };
 		BF0E01232F5072C10074B393 /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = BF0E01242F5072C10074B393 /* SentrySwiftUI */; };
+		W30000020000000000000001 /* LinkyTrackerWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = W30000030000000000000001 /* LinkyTrackerWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -19,17 +20,40 @@
 			remoteGlobalIDString = E10000060000000000000001;
 			remoteInfo = LinkyTracker;
 		};
+		W30000010000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E10000090000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = W30000060000000000000001;
+			remoteInfo = LinkyTrackerWidgetsExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		W30000070000000000000003 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				W30000020000000000000001 /* LinkyTrackerWidgetsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		BF9400C32F45AA6500EDF17A /* LinkyTracker.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = LinkyTracker.xctestplan; sourceTree = "<group>"; };
 		E10000030000000000000001 /* LinkyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E20000030000000000000001 /* LinkyTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinkyTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		W30000030000000000000001 /* LinkyTrackerWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LinkyTrackerWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E10000050000000000000002 /* LinkyTracker */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LinkyTracker; sourceTree = "<group>"; };
 		E20000050000000000000001 /* LinkyTrackerUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LinkyTrackerUITests; sourceTree = "<group>"; };
+		W30000050000000000000001 /* LinkyTrackerWidgets */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LinkyTrackerWidgets; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +73,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		W30000040000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -57,6 +88,7 @@
 			children = (
 				BF9400C32F45AA6500EDF17A /* LinkyTracker.xctestplan */,
 				E10000050000000000000002 /* LinkyTracker */,
+				W30000050000000000000001 /* LinkyTrackerWidgets */,
 				E20000050000000000000001 /* LinkyTrackerUITests */,
 				E10000050000000000000009 /* Products */,
 			);
@@ -67,6 +99,7 @@
 			children = (
 				E10000030000000000000001 /* LinkyTracker.app */,
 				E20000030000000000000001 /* LinkyTrackerUITests.xctest */,
+				W30000030000000000000001 /* LinkyTrackerWidgetsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,10 +114,12 @@
 				E10000070000000000000001 /* Sources */,
 				E10000040000000000000001 /* Frameworks */,
 				E10000070000000000000002 /* Resources */,
+				W30000070000000000000003 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				W30000090000000000000001 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				E10000050000000000000002 /* LinkyTracker */,
@@ -119,6 +154,26 @@
 			productReference = E20000030000000000000001 /* LinkyTrackerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		W30000060000000000000001 /* LinkyTrackerWidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = W30000080000000000000001 /* Build configuration list for PBXNativeTarget "LinkyTrackerWidgetsExtension" */;
+			buildPhases = (
+				W30000070000000000000001 /* Sources */,
+				W30000040000000000000001 /* Frameworks */,
+				W30000070000000000000002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				W30000050000000000000001 /* LinkyTrackerWidgets */,
+			);
+			name = LinkyTrackerWidgetsExtension;
+			productName = LinkyTrackerWidgetsExtension;
+			productReference = W30000030000000000000001 /* LinkyTrackerWidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -135,6 +190,9 @@
 					E20000060000000000000001 = {
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = E10000060000000000000001;
+					};
+					W30000060000000000000001 = {
+						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
@@ -156,6 +214,7 @@
 			targets = (
 				E10000060000000000000001 /* LinkyTracker */,
 				E20000060000000000000001 /* LinkyTrackerUITests */,
+				W30000060000000000000001 /* LinkyTrackerWidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -169,6 +228,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E20000070000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		W30000070000000000000002 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -192,6 +258,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		W30000070000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -199,6 +272,11 @@
 			isa = PBXTargetDependency;
 			target = E10000060000000000000001 /* LinkyTracker */;
 			targetProxy = E20000010000000000000001 /* PBXContainerItemProxy */;
+		};
+		W30000090000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = W30000060000000000000001 /* LinkyTrackerWidgetsExtension */;
+			targetProxy = W30000010000000000000001 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -426,6 +504,62 @@
 			};
 			name = Release;
 		};
+		W3000000A000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = LinkyTrackerWidgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thibaut.linkytracker.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		W3000000A000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = LinkyTrackerWidgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thibaut.linkytracker.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -452,6 +586,15 @@
 			buildConfigurations = (
 				E2000000A000000000000001 /* Debug */,
 				E2000000A000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		W30000080000000000000001 /* Build configuration list for PBXNativeTarget "LinkyTrackerWidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				W3000000A000000000000001 /* Debug */,
+				W3000000A000000000000002 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

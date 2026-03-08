@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { Country, Eur, Year } from '~/domain/shared/primitives'
+import { Country, Eur, EurPerKwh, Kva, Kwh, Wh, Year } from '~/domain/shared/primitives'
 
 describe('Eur', () => {
   test('accepts a positive number', () => {
@@ -44,5 +44,53 @@ describe('Country', () => {
 
   test('rejects an empty string', () => {
     expect(() => Country('')).toThrow()
+  })
+})
+
+describe('Wh', () => {
+  test('accepts a positive number', () => {
+    expect(Wh(1500)).toBe(Wh(1500))
+  })
+
+  test('coerces a string to number', () => {
+    expect(Wh('1500')).toBe(Wh(1500))
+  })
+
+  test('rejects a negative number', () => {
+    expect(() => Wh(-1)).toThrow()
+  })
+})
+
+describe('Kva', () => {
+  test('accepts a positive number', () => {
+    expect(Kva(6)).toBe(Kva(6))
+  })
+
+  test('rejects a negative number', () => {
+    expect(() => Kva(-1)).toThrow()
+  })
+})
+
+describe('Kwh', () => {
+  test('accepts a positive number', () => {
+    expect(Kwh(12.5)).toBe(Kwh(12.5))
+  })
+
+  test('coerces a string to number', () => {
+    expect(Kwh('12.5')).toBe(Kwh(12.5))
+  })
+
+  test('rejects a negative number', () => {
+    expect(() => Kwh(-1)).toThrow()
+  })
+})
+
+describe('EurPerKwh', () => {
+  test('accepts a positive number', () => {
+    expect(EurPerKwh(0.174)).toBe(EurPerKwh(0.174))
+  })
+
+  test('rejects a negative number', () => {
+    expect(() => EurPerKwh(-0.01)).toThrow()
   })
 })

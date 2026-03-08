@@ -1,7 +1,11 @@
 export default defineEventHandler(async () => {
   for (const name of [
     'migration-meta',
-    // Add your domain storage namespaces here
+    'daily-consumption',
+    'load-curve',
+    'max-power',
+    'pricing-config',
+    'sync-meta',
   ]) {
     const storage = useStorage(name)
     const keys = await storage.getKeys()
