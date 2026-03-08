@@ -1,128 +1,89 @@
-# nitro-ios-stack-template
+# LinkyTracker
 
-A GitHub template for full-stack apps with a **Nitro/TypeScript DDD backend** and **SwiftUI iOS frontend**.
+Track your French Linky electricity meter consumption with a self-hosted dashboard and iOS app.
 
-## Tech Stack
+## What LinkyTracker does
 
-**Backend:**
-- [Nitro](https://nitro.build/) 2.12 — TypeScript server framework
-- [Zod](https://zod.dev/) 4 — Runtime validation
-- [ts-brand](https://github.com/nicklasw/ts-brand) — Nominal/branded types
-- [ts-pattern](https://github.com/gvergnaud/ts-pattern) — Exhaustive pattern matching
-- [Sentry](https://sentry.io/) — Error tracking & performance monitoring
-- File-based storage (fs driver)
+- Automatically fetches daily electricity consumption from your Linky meter
+- Shows day-by-day consumption, load curves, and peak power usage
+- Calculates costs based on your HC/HP (off-peak/peak) tariff
+- Monthly trends and most expensive days
+- iOS app with dashboard, trends, HC/HP breakdown, and settings
+- Data syncs automatically every day
 
-**iOS:**
-- SwiftUI — iOS 26.0+
-- Swift 6 — Strict concurrency
-- Sentry — Crash reporting
+## Prerequisites
 
-**Infrastructure:**
-- [Bun](https://bun.sh/) — Runtime & package manager
-- Docker — Production deployment
-- GitHub Actions — CI/CD (Docker publish, Sentry autofix)
+- A Linky smart meter installed at home
+- An [Enedis](https://mon-compte-particulier.enedis.fr/) account (French electricity grid operator)
+- Docker installed on your server
+- Xcode (only if you want to build the iOS app)
 
-## Quick Start
+## Getting your API keys
 
-### 1. Use this template
+### Conso API token (to access your Linky data)
 
-Click **"Use this template"** on GitHub, or clone and run `init.sh`:
+1. Go to [conso.boris.sh](https://conso.boris.sh)
+2. Click the authorization button
+3. Log in to your Enedis account and accept data sharing
+4. Copy the token displayed at the end
 
-```bash
-git clone https://github.com/YOUR_USERNAME/nitro-ios-stack-template.git my-project
-cd my-project
-./init.sh
-```
+### PRM number (your meter ID)
 
-The init script will:
-- Rename all `LinkyTracker` references to your project name
-- Create secret files from templates
-- Install dependencies
-- Initialize git
+You can find it in one of these places:
 
-### 2. Start the backend
+- **On your Linky meter**: press the **+** button to scroll to the PRM number
+- **On your electricity bill**: listed as "PRM" or "PDL" (Point de Livraison)
+- **In your Enedis account**: visible in your online dashboard
 
-```bash
-bun run dev
-```
+### API token (to secure your server)
 
-### 3. Open the iOS project
+Choose any password you like — this protects access to your LinkyTracker server. The same token must be set on the server and in the iOS app.
 
-```bash
-open ios/LinkyTracker.xcodeproj
-```
+### Sentry DSN (optional, for error tracking)
 
-Set your development team in Xcode, then build and run.
+Create a free project at [sentry.io](https://sentry.io) if you want error tracking. Skip this if you don't need it.
 
-## Project Structure
+## Installation — Server (Docker)
 
-```
-├── server/
-│   ├── domain/        # Business logic (DDD bounded contexts)
-│   ├── routes/        # HTTP endpoints
-│   ├── middleware/     # Auth
-│   ├── plugins/       # Sentry, migration, cache
-│   └── system/        # Config, migration, Sentry instrumentation
-├── ios/
-│   ├── LinkyTracker/         # SwiftUI app
-│   └── LinkyTrackerUITests/  # UI tests (Page Object pattern)
-├── docs/              # Architecture & pattern guides
-└── CLAUDE.md          # AI coding assistant directives
-```
+### Standard Docker
 
-## Documentation
-
-| Guide | Description |
-|-------|-------------|
-| [Architecture](docs/architecture.md) | Backend DDD layers, data flow, cross-domain rules |
-| [Domain Guide](docs/domain-guide.md) | Step-by-step: adding a new domain |
-| [Branded Types](docs/branded-types.md) | ts-brand + Zod validation pattern |
-| [Error Handling](docs/error-handling.md) | Discriminated unions, match().exhaustive() |
-| [Migrations](docs/migrations.md) | Migration system guide |
-| [iOS Guide](docs/ios-guide.md) | Feature structure, ViewModel, APIClient |
-| [API Patterns](docs/api-patterns.md) | Route handler patterns (GET/POST/PUT/DELETE) |
-| [Code Style](docs/code-style.md) | All coding rules with before/after examples |
-
-## Configuration
-
-### Environment Variables
-
-| Variable | Description |
-|----------|-------------|
-| `NITRO_API_TOKEN` | Bearer token for API authentication (optional) |
-| `NITRO_SENTRY_DSN` | Sentry DSN for error tracking (optional) |
-
-### iOS Secrets
-
-```bash
-cp ios/LinkyTracker/Shared/Secrets.swift.example ios/LinkyTracker/Shared/Secrets.swift
-cp ios/LinkyTrackerUITests/Support/TestSecrets.swift.example ios/LinkyTrackerUITests/Support/TestSecrets.swift
-```
-
-## Deployment
-
-### Docker
-
-```bash
-bun run build
-docker build -t linky-tracker .
-docker run -p 3000:3000 -e NITRO_API_TOKEN=secret linky-tracker
-```
-
-Or use `docker-compose.yml`:
-
-```bash
-docker compose up -d
-```
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+2. Fill in the variables in `.env`:
+   - `NITRO_CONSO_API_TOKEN` — your Conso API token
+   - `NITRO_CONSO_API_PRM` — your PRM number
+   - `NITRO_API_TOKEN` — the password you chose to secure your server
+   - `NITRO_SENTRY_DSN` — your Sentry DSN (leave empty to skip)
+3. Start the server:
+   ```bash
+   docker compose up -d
+   ```
+4. The server runs on port **3000**
+5. Your data is stored in `./data/` (persisted via a Docker volume)
 
 ### CasaOS
 
-[CasaOS](https://casaos.io/) is a home server OS that deploys apps via docker-compose with `x-casaos` metadata.
+1. Use the provided `docker-compose.casaos.yml`
+2. Update the `image` field with your Docker image
+3. Set the environment variables
+4. Import the file in CasaOS
 
-A ready-to-use compose file is provided in `docker-compose.casaos.yml`. To deploy:
+## Installation — iOS app
 
-1. Copy `docker-compose.casaos.yml` to your CasaOS instance
-2. Update the `image` field with your Docker image (e.g. `ghcr.io/your-org/your-app:latest`)
-3. Set `NITRO_API_TOKEN` and `NITRO_SENTRY_DSN` environment variables
-4. Update the `x-casaos` block (title, icon, author) to match your project
-5. Import the file in CasaOS or place it in the app store directory
+1. Open `ios/LinkyTracker.xcodeproj` in Xcode
+2. Copy the secrets template:
+   ```bash
+   cp ios/LinkyTracker/Shared/Secrets.swift.example ios/LinkyTracker/Shared/Secrets.swift
+   ```
+3. Edit `Secrets.swift` and fill in your API token and Sentry DSN
+4. Set your development team in Xcode (Signing & Capabilities)
+5. Build and run on your device
+
+## How it works
+
+- The server fetches your Linky data automatically every day (around 10am and 11am UTC)
+- Enedis data is available with a one-day delay — yesterday's data appears around 8am
+- Configure your HC/HP rates from the app settings
+- All data is stored locally on your server — nothing goes to the cloud

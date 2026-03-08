@@ -1,6 +1,6 @@
 services:
   server:
-    image: username/linky-tracker:latest
+    image: moifort/linky-tracker:latest
     container_name: linky-tracker-server
     restart: unless-stopped
     environment:

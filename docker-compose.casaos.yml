@@ -1,7 +1,7 @@
 name: linky-tracker
 services:
   server:
-    image: username/linky-tracker:latest
+    image: moifort/linky-tracker:latest
     container_name: linky-tracker-server
     restart: unless-stopped
     cpu_shares: 50
@@ -31,16 +31,16 @@ services:
         target: /app/.data
     network_mode: bridge
     labels:
-      icon: https://raw.githubusercontent.com/username/linky-tracker/main/icon.png
+      icon: https://raw.githubusercontent.com/moifort/linky-tracker/main/icon.png
     ports:
       - target: 3000
         published: "3000"
         protocol: tcp
 
 x-casaos:
-  author: username
+  author: moifort
   category: Utilities
-  icon: https://raw.githubusercontent.com/username/linky-tracker/main/icon.png
+  icon: https://raw.githubusercontent.com/moifort/linky-tracker/main/icon.png
   index: /
   port_map: "3000"
   scheme: http
