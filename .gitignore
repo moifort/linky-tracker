@@ -1,0 +1,27 @@
+node_modules
+dist
+.data
+.data-test
+.nitro
+.cache
+.output
+.env
+.env.local
+.derivedData
+data
+output
+
+# iOS / Xcode
+.DS_Store
+*.xcworkspace
+xcuserdata/
+
+# iOS secrets (contains API tokens) — uncomment after running init.sh
+ios/LinkyTracker/Shared/Secrets.swift
+ios/LinkyTrackerUITests/Support/TestSecrets.swift
+
+# IDE
+.idea/
+
+# Claude Code
+.claude/
